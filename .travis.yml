@@ -1,0 +1,10 @@
+language: generic
+sudo: required
+services:
+  - docker #travis will install a copy of docker
+
+before_install: #series of commands to execute before the tests are run (for this case we want to build the docker image before running tests)
+  - docker build -t tingjun/docker-react-practice -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true tingjun/docker-react-practice npm run test -- --coverage
